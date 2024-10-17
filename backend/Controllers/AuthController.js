@@ -14,8 +14,8 @@ export const register = async (req,res) => {
             return res.status(400).json({
                 success: false,
                 message: "User with this email or username already exists"
-            });
-        }
+            });   }
+     
 
         // Hash password
         const salt = bcrypt.genSaltSync(10);
@@ -24,9 +24,8 @@ export const register = async (req,res) => {
         const newUser = new User({
             username,
             email,
-            password: hash,
-        });
-
+            password: hash, });
+    
         await newUser.save();
 
         res.status(200).json({
@@ -46,7 +45,6 @@ export const register = async (req,res) => {
 export const login = async (req,res) => {
 
     const email = req.body.email
-
     try {
         const user = await User.findOne({email})
 
